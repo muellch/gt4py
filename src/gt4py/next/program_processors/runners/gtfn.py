@@ -38,7 +38,7 @@ from gt4py.next.type_system.type_translation import from_value
 def convert_arg(arg: Any) -> Any:
     if isinstance(arg, tuple):
         return tuple(convert_arg(a) for a in arg)
-    if common.is_field(arg):
+    if isinstance(arg, common.Field):
         arr = arg.ndarray
         origin = getattr(arg, "__gt_origin__", tuple([0] * len(arg.domain)))
         return arr, origin
@@ -54,10 +54,7 @@ def convert_args(
     ) -> None:
         converted_args = [convert_arg(arg) for arg in args]
         conn_args = extract_connectivity_args(offset_provider, device)
-        return inp(
-            *converted_args,
-            *conn_args,
-        )
+        return inp(*converted_args, *conn_args)
 
     return decorated_program
 
@@ -191,8 +188,7 @@ class GTFNBackendFactory(factory.Factory):
 run_gtfn = GTFNBackendFactory()
 
 run_gtfn_imperative = GTFNBackendFactory(
-    name_postfix="_imperative",
-    otf_workflow__translation__use_imperative_backend=True,
+    name_postfix="_imperative", otf_workflow__translation__use_imperative_backend=True
 )
 
 run_gtfn_cached = GTFNBackendFactory(cached=True)
