@@ -388,6 +388,9 @@ V = Dimension("V")
 E = Dimension("E")
 K = Dimension("K", kind=gtx.DimensionKind.VERTICAL)
 
+I = Dimension("I")
+J = Dimension("J")
+
 C2EDim = Dimension("C2E", kind=DimensionKind.LOCAL)
 C2E = FieldOffset("C2E", source=E, target=(C, C2EDim))
 V2EDim = Dimension("V2E", kind=DimensionKind.LOCAL)
@@ -400,3 +403,5 @@ E2C2VDim = Dimension("E2C2V", kind=DimensionKind.LOCAL)
 E2C2V = FieldOffset("E2C2V", source=V, target=(E, E2C2VDim))
 Coff = FieldOffset("Coff", source=C, target=(C,))  # delete this?
 Koff = FieldOffset("Koff", source=K, target=(K,))
+Ioff = FieldOffset("Ioff", source=I, target=(I,))
+Joff = FieldOffset("Joff", source=J, target=(J,))
